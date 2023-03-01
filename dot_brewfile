@@ -4,6 +4,7 @@ brew "neofetch"
 brew "bitwarden-cli"
 
 cask "alt-tab"
+cask "bitwarden"
 cask "github"
 cask "keka"
 cask "iterm2"
