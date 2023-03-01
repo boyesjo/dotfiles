@@ -1,0 +1,6 @@
+Host markov
+	HostName markov.math.ntnu.no
+	User boyegs
+	Port 22
+	PreferredAuthentications publickey
+  	IdentityFile "~/.ssh/keys/markov_rsa"
