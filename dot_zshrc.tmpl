@@ -26,7 +26,7 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # vpn
-alias vpn_start="echo "Buddy4!Bagging!Robin" | sudo openconnect --user=boyegs --passwd-on-stdin vpn.ntnu.no"
+alias vpn="echo "{{- feide.vpn_pass- }}" | sudo openconnect --user={{- feide.vpn_user -}} --passwd-on-stdin vpn.ntnu.no"
 source /opt/homebrew/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 
 
 

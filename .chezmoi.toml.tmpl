@@ -1,6 +1,6 @@
 [edit]
     command = "code"
-    args = ["--wait"]
+    args = ["--wait", "--disable-workspace-trust"]
     
 [git]
     autoCommit = true
@@ -9,5 +9,7 @@
 [data]
     email = "boyegs@gmail.com"
     name = "Boye Sjo"
-    vpnUser = {{ (bitwarden "item" "idp.feide.no").login.username }}
-    vpnPass = {{ (bitwarden "item" "idp.feide.no").login.password }}
+    
+[data.feide]
+    vpn_user = "{{ (bitwarden "item" "idp.feide.no").login.username }}"
+    vpn_pass = "{{ (bitwarden "item" "idp.feide.no").login.password }}"
