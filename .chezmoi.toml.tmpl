@@ -9,3 +9,5 @@
 [data]
     email = "boyegs@gmail.com"
     name = "Boye Sjo"
+    vpnUser = {{ (bitwarden "item" "idp.feide.no").login.username }}
+    vpnPass = {{ (bitwarden "item" "idp.feide.no").login.password }}
