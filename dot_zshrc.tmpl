@@ -29,6 +29,13 @@ fi
 alias vpn="echo "{{- .feide.vpn_pass -}}" | sudo openconnect --user={{- .feide.vpn_user -}} --passwd-on-stdin vpn.ntnu.no"
 source /opt/homebrew/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 
 
+plugins=(
+  git
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+  python
+) 
+
 
 
 # >>> conda initialize >>>
