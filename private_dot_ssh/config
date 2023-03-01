@@ -4,3 +4,4 @@ Host markov
 	Port 22
 	PreferredAuthentications publickey
   	IdentityFile "~/.ssh/keys/markov_rsa"
+	RemoteCommand zsh -l
