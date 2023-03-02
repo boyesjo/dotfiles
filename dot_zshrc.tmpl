@@ -16,10 +16,9 @@ else
   export EDITOR='code --wait --disable-workspace-trust'
 fi
 
-{{ if eq .use_bitwarden "yes" -}}
+{{ if lookPath bw-}}
 vpn_user = "{{ (bitwarden "item" "idp.feide.no").login.username }}"
 vpn_pass = "{{ (bitwarden "item" "idp.feide.no").login.password }}"
-# alias vpn="echo "{{- .feide.vpn_pass -}}" | sudo openconnect --user={{- .feide.vpn_user -}} --passwd-on-stdin vpn.ntnu.no"
 alias vpn="echo $vpn_pass | sudo openconnect --user=$vpn_user --passwd-on-stdin vpn.ntnu.no"
 {{ else -}}
 alias vpn="sudo openconnect vpn.ntnu.no"
