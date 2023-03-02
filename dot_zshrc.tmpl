@@ -37,7 +37,7 @@ plugins=(
 )
 
 
-{{ if .conda.use_conda -}}
+{{ if eq .use_conda "yes" -}}
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/homebrew/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"

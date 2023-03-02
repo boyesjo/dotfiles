@@ -9,9 +9,7 @@
 [data]
     email = "boyegs@gmail.com"
     name = "Boye Sjo"
-
-[data.conda]
-    use_conda = {{ if ! command -v conda > /dev/null; then echo "false"; else echo "true"; fi }}
+    use_conda = "yes"
     
 [data.feide]
     vpn_user = "{{ (bitwarden "item" "idp.feide.no").login.username }}"
