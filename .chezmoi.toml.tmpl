@@ -12,7 +12,7 @@
     use_conda = {{ if lookPath "conda" -}}"yes"{{- else -}}"no"{{- end }}
     use_bitwarden = {{ if lookPath "bw" -}}"yes"{{- else -}}"no"{{- end }}
 
-{{ if eq .use_conda "yes" }}
+{{ if eq .use_bitwarden "yes" }}
 [data.feide]
     vpn_user = "{{ (bitwarden "item" "idp.feide.no").login.username }}"
     vpn_pass = "{{ (bitwarden "item" "idp.feide.no").login.password }}"
