@@ -9,8 +9,11 @@
 [data]
     email = "boyegs@gmail.com"
     name = "Boye Sjo"
-    use_conda = "yes"
-    
+    use_conda = {{ if lookPath "conda" -}}"yes"{{- else -}}"no"{{- end }}
+    use_bitwarden = {{ if lookPath "bw" -}}"yes"{{- else -}}"no"{{- end }}
+
+{{ if eq .use_conda "yes" }}
 [data.feide]
     vpn_user = "{{ (bitwarden "item" "idp.feide.no").login.username }}"
     vpn_pass = "{{ (bitwarden "item" "idp.feide.no").login.password }}"
+{{ end }}

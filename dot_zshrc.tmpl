@@ -16,7 +16,11 @@ else
   export EDITOR='code --wait --disable-workspace-trust'
 fi
 
+{{ if eq .use_bitwarden "yes" -}}
 alias vpn="echo "{{- .feide.vpn_pass -}}" | sudo openconnect --user={{- .feide.vpn_user -}} --passwd-on-stdin vpn.ntnu.no"
+{{ else -}}
+alias vpn="sudo openconnect vpn.ntnu.no"
+{{ end -}}
 
 {{ if eq .use_conda "yes" -}}
 # >>> conda initialize >>>
@@ -33,6 +37,16 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+{{ end -}}
+
+{{ if lookPath "pyenv" -}}
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"%     
+{{ end -}}
+
+{{ if lookPath "bat" -}}
+alias cat="bat"
 {{ end -}}
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
