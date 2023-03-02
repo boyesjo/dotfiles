@@ -1,10 +1,8 @@
-# Path to your oh-my-zsh installation.
-export ZSH="/Users/boyesjo/.oh-my-zsh"
-
 # Set name of the theme to load --- if set to "random", it will
 ZSH_THEME="avit"
 
-source $ZSH/oh-my-zsh.sh
+source ~/antigen.zsh
+antigen init ~/.antigenrc
 
 # User configuration
 # Preferred editor for local and remote sessions
@@ -14,28 +12,7 @@ else
   export EDITOR='code --wait --disable-workspace-trust'
 fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-# vpn
 alias vpn="echo "{{- .feide.vpn_pass -}}" | sudo openconnect --user={{- .feide.vpn_user -}} --passwd-on-stdin vpn.ntnu.no"
-source /opt/homebrew/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 
-
-plugins=(
-  git
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-  python
-)
-
 
 {{ if eq .use_conda "yes" -}}
 # >>> conda initialize >>>
@@ -53,6 +30,3 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 {{ end -}}
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
