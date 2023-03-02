@@ -11,6 +11,7 @@ antigen bundle command-not-found
 antigen bundle safe-paste
 antigen bundle colorize
 antigen bundle macos
+antigen bundle fzf
 
 
 # Additional bundles
