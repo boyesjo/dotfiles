@@ -11,8 +11,7 @@ antigen bundle command-not-found
 antigen bundle safe-paste
 antigen bundle colorize
 antigen bundle macos
-antigen bundle fzf
-
+antigen bundle autojump
 
 # Additional bundles
 antigen bundle zsh-users/zsh-syntax-highlighting
