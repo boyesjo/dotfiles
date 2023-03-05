@@ -48,15 +48,6 @@ eval "$(pyenv init -)"%
 alias cat="bat"
 {{ end -}}
 
-{{ if lookPath "exa" -}}
-
-alias l="exa -l"
-alias la="exa -la"
-alias ll="exa -l --git"
-{{ end -}}
-
-{{ if lookPath "fd" -}}
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
