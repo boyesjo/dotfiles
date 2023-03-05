@@ -1,0 +1,19 @@
+## Zinit Setting
+# Must Load OMZ Git library
+zi snippet OMZL::git.zsh
+
+# Load Git plugin from OMZ
+zi snippet OMZP::git
+zi cdclear -q # <- forget completions provided up to this moment
+
+zinit light romkatv/powerlevel10k
+
+autoload compinit
+compinit
+zinit light Aloxaf/fzf-tab
+zinit light zdharma-continuum/fast-syntax-highlighting
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-completions
+zinit light ael-code/zsh-colored-man-pages
+zinit light esc/conda-zsh-completion
