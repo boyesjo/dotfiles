@@ -17,3 +17,4 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
 zinit light ael-code/zsh-colored-man-pages
 zinit light esc/conda-zsh-completion
+zinit light DarrinTisdale/zsh-aliases-exa
