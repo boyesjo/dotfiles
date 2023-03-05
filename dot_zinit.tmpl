@@ -8,7 +8,7 @@ zi snippet OMZP::git
 
 zinit light romkatv/powerlevel10k
 
-
+{{ if lookPath "fzf" -}}
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 zinit light Aloxaf/fzf-tab
 # disable sort when completing `git checkout`
@@ -21,10 +21,14 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
+{{ end -}}
 
 zinit light zdharma-continuum/fast-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
 zinit light ael-code/zsh-colored-man-pages
 zinit light esc/conda-zsh-completion
+
+{{ if lookPath "exa" -}}
 zinit light DarrinTisdale/zsh-aliases-exa
+{{ end -}}
