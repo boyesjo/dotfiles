@@ -51,6 +51,16 @@ alias cat="bat"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# compinit
+{{ if lookPath "brew" -}}
+# Add zsh completion scripts installed via Homebrew
+fpath=("$HOMEBREW/share/zsh/site-functions" $fpath)
+{{ end -}}
+
+# Reload the zsh-completions
+autoload -U compinit && compinit
+
+
 # zinit
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
@@ -58,5 +68,3 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 source "${ZINIT_HOME}/zinit.zsh"
 
 source $HOME/.zinit
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
