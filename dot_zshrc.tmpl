@@ -53,7 +53,7 @@ alias cat="bat"
 
 # compinit
 {{ if lookPath "brew" -}}
-export HOMEBREW=/opt/homebrew/bin/brew
+export HOMEBREW=/opt/homebrew
 # Add zsh completion scripts installed via Homebrew
 fpath=("$HOMEBREW/share/zsh/site-functions" $fpath)
 {{ end -}}
