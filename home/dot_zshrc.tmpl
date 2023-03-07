@@ -68,12 +68,12 @@ alias cat="bat"
 {{ end -}}
 
 # Load Homebrew shell completions; this is done here instead of in environment.zsh because it needs to be done before zinit is bootstrapped
-# if (( $+commands[brew] )); then
-#  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-# fi
+if (( $+commands[brew] )); then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
 
 # Reload the zsh-completions
-# autoload -U compinit && compinit
+autoload -U compinit && compinit
 
 
 # zinit
