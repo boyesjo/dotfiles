@@ -65,12 +65,10 @@ alias cat="bat"
 # export HOMEBREW=/opt/homebrew
 # Add zsh completion scripts installed via Homebrew
 # fpath=("$HOMEBREW/share/zsh/site-functions" $fpath)
+eval "$(/opt/homebrew/bin/brew shellenv)"
+FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 {{ end -}}
 
-# Load Homebrew shell completions; this is done here instead of in environment.zsh because it needs to be done before zinit is bootstrapped
-if (( $+commands[brew] )); then
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-fi
 
 # Reload the zsh-completions
 autoload -U compinit && compinit
