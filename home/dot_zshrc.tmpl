@@ -5,6 +5,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+export ZDOTDIR=$HOME/.config/zsh
+
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nano'
@@ -13,8 +15,6 @@ else
 fi
 
 {{ if lookPath "fzf" -}}
-# FZF
-# export FZF_BASE="$BREW_PREFIX/opt/fzf"
 [ -f ~/.fzf.zsh ] && ~/.fzf.zsh
 # source $HOME/.fzf/fzf-tab/fzf-tab.plugin.zsh
 # disable sort when completing `git checkout`
@@ -28,17 +28,16 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
 # prepend fzf to plugins
-plugins=(fzf $plugins)
 {{ end -}}
 
 path+=$HOME/bin
 
 
-# {{ if lookPath "bw" }}
-# alias vpn='echo '{{ (bitwarden "item" "idp.feide.no").login.password }}' | sudo openconnect --user='{{ (bitwarden "item" "idp.feide.no").login.username }}' --passwd-on-stdin vpn.ntnu.no'
-# {{ else -}}
-# alias vpn="sudo openconnect vpn.ntnu.no"
-# {{ end }}
+{{ if lookPath "bw" -}}
+alias vpn='echo '{{ (bitwarden "item" "idp.feide.no").login.password }}' | sudo openconnect --user='{{ (bitwarden "item" "idp.feide.no").login.username }}' --passwd-on-stdin vpn.ntnu.no'
+{{ else -}}
+alias vpn="sudo openconnect vpn.ntnu.no"
+{{ end }}
 
 {{ if eq .use_conda "yes" -}}
 # >>> conda initialize >>>
@@ -86,9 +85,6 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 
-# # Path to your oh-my-zsh installation.
-# export ZSH="$HOME/.oh-my-zsh"
-
-# ZSH_THEME="powerlevel10k/powerlevel10k"
-# DISABLE_AUTO_UPDATE="true"
-# source $ZSH/oh-my-zsh.sh
+# 
+source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+antidote load
