@@ -34,11 +34,11 @@ plugins=(fzf $plugins)
 path+=$HOME/bin
 
 
-{{ if lookPath "bw" }}
-alias vpn='echo '{{ (bitwarden "item" "idp.feide.no").login.password }}' | sudo openconnect --user='{{ (bitwarden "item" "idp.feide.no").login.username }}' --passwd-on-stdin vpn.ntnu.no'
-{{ else -}}
-alias vpn="sudo openconnect vpn.ntnu.no"
-{{ end }}
+# {{ if lookPath "bw" }}
+# alias vpn='echo '{{ (bitwarden "item" "idp.feide.no").login.password }}' | sudo openconnect --user='{{ (bitwarden "item" "idp.feide.no").login.username }}' --passwd-on-stdin vpn.ntnu.no'
+# {{ else -}}
+# alias vpn="sudo openconnect vpn.ntnu.no"
+# {{ end }}
 
 {{ if eq .use_conda "yes" -}}
 # >>> conda initialize >>>
