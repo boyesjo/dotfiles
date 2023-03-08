@@ -36,3 +36,6 @@
     url = "https://github.com/zsh-users/zsh-autosuggestions.git"
     exact = true
     stripComponents = 1
+    
+    
+# git clone https://github.com/Aloxaf/fzf-tab ~/somewhere
