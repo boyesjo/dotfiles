@@ -3,5 +3,5 @@ romkatv/powerlevel10k
 
 unixorn/fzf-zsh-plugin
 Aloxaf/fzf-tab
-zsh-users/zsh-autosuggestions kind:defer post:init-autosuggestions
+zsh-users/zsh-autosuggestions
 zsh-users/zsh-syntax-highlighting
