@@ -30,8 +30,8 @@
     exact = true
     stripComponents = 1
     
-[".oh-my-zsh/custom/plugins/zsh-autosuggestions"]
-    type = "git-repo"
-    url = "https://github.com/zsh-users/zsh-autosuggestions.git"
-    exact = true
-    stripComponents = 1
+#[".oh-my-zsh/custom/plugins/zsh-autosuggestions"]
+ #   type = "git-repo"
+  #  url = "https://github.com/zsh-users/zsh-autosuggestions.git"
+   # exact = true
+    #stripComponents = 1
