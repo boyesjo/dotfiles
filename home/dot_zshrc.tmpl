@@ -22,6 +22,7 @@ DISABLE_AUTO_UPDATE="true"
 
 {{ if lookPath "fzf" -}}
 # FZF
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
 # set descriptions format to enable group support
