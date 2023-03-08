@@ -4,7 +4,7 @@ romkatv/powerlevel10k
 unixorn/fzf-zsh-plugin
 Aloxaf/fzf-tab
 zsh-users/zsh-autosuggestions
-zsh-users/zsh-completions fpath
+zsh-users/zsh-completions kind:fpath
 zdharma-continuum/fast-syntax-highlighting
 
 ohmyzsh/ohmyzsh path:plugins/copyfile
