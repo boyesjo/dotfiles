@@ -1,0 +1,65 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+export ZDOTDIR=$HOME/.config/zsh
+
+autoload -Uz compinit
+compinit
+
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='nano'
+else
+  export EDITOR='code --wait --disable-workspace-trust'
+fi
+
+[ -f ~/.fzf.zsh ] && ~/.fzf.zsh
+# source $HOME/.fzf/fzf-tab/fzf-tab.plugin.zsh
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# preview directory's content with exa when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+# switch group using `,` and `.`
+zstyle ':fzf-tab:*' switch-group ',' '.'
+# prepend fzf to plugins
+path+=$HOME/bin
+
+
+alias vpn='echo 'Unthawed8!Blast!Stubborn' | sudo openconnect --user='boyegs' --passwd-on-stdin vpn.ntnu.no'
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/homebrew/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/homebrew/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/homebrew/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+alias ls="exa -F"
+alias l="exa -lF --git"
+alias la="exa -lba --git"
+alias cat="bat"
+export BREW_PREFIX="/opt/homebrew"
+eval "$(/opt/homebrew/bin/brew shellenv)"
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+
+# 
+source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+antidote load
