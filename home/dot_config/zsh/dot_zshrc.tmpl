@@ -67,9 +67,7 @@ compinit
 {{ end -}}
 
 # 
-source ${ZDOTDIR:-~}/.antidote/antidote.zsh
-antidote load
-
+export FZF_PATH="$HOME/.config/fzf"
 {{ if lookPath "fzf" -}}
 ## FZF
 # disable sort when completing `git checkout`
@@ -83,3 +81,6 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
 {{ end -}}
+
+source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+antidote load
