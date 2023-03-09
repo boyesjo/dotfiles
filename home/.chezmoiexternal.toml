@@ -1,0 +1,8 @@
+[".config/zsh/.antidote"]
+    type = "git-repo"
+    url = "https://github.com/mattmc3/antidote.git"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+    [".config/zsh/.antidote".pull]
+        args = ["--depth=1"]
