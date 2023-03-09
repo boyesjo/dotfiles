@@ -5,7 +5,8 @@ romkatv/powerlevel10k
 unixorn/fzf-zsh-plugin
 Aloxaf/fzf-tab
 zsh-users/zsh-autosuggestions
-zsh-users/zsh-completions path:src
+zsh-users/zsh-completions
+zsh-users/zsh-completions kind:fpath
 zdharma-continuum/fast-syntax-highlighting
 conda-incubator/conda-zsh-completion
 
