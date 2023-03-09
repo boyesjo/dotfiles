@@ -1,5 +1,5 @@
 # THEME
-romkatv/powerlevel10k kind:fpath
+romkatv/powerlevel10k
 
 # PLUGINS
 unixorn/fzf-zsh-plugin
