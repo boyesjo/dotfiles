@@ -1,5 +1,5 @@
 # THEME
-romkatv/powerlevel10k
+romkatv/powerlevel10k kind:fpath
 
 # PLUGINS
 unixorn/fzf-zsh-plugin
@@ -12,6 +12,6 @@ conda-incubator/conda-zsh-completion
 # OMZ PLUGINS
 ohmyzsh/ohmyzsh path:plugins/macos
 ohmyzsh/ohmyzsh path:plugins/colored-man-pages
-ohmyzsh/ohmyzsh path:plugins/pip
-ohmyzsh/ohmyzsh path:plugins/command-not-found
-ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/pip kind:fpath
+ohmyzsh/ohmyzsh path:plugins/command-not-found kind:fpath
+ohmyzsh/ohmyzsh path:plugins/git kind:fpath
