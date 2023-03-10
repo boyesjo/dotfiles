@@ -1,0 +1,48 @@
+# bsp or float (default: float)
+yabai -m config layout bsp
+
+# Set all padding and gaps to 20pt (default: 0)
+yabai -m config top_padding    20
+yabai -m config bottom_padding 20
+yabai -m config left_padding   20
+yabai -m config right_padding  20
+yabai -m config window_gap     20
+
+# on or off (default: off)
+yabai -m config auto_balance off
+
+# Floating point value between 0 and 1 (default: 0.5)
+yabai -m config split_ratio 0.5
+
+# set mouse interaction modifier key (default: fn)
+yabai -m config mouse_modifier rctrl
+# set modifier + left-click drag to move window (default: move)
+yabai -m config mouse_action1 move
+# set modifier + right-click drag to resize window (default: resize)
+yabai -m config mouse_action2 resize
+
+
+# set focus follows mouse mode (default: off, options: off, autoraise, autofocus)
+yabai -m config focus_follows_mouse autoraise
+
+# floating windows are always on top (default: off)
+yabai -m config window_topmost on
+
+# add 20 padding to the top of all spaces regardless of the display it belongs to
+yabai -m config external_bar all:0:0
+
+
+# rules
+## makes system preferences always floating
+yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app="^Raycast$" manage=off
+yabai -m rule --add title='Preferences$' manage=off
+yabai -m rule --add app="^System Information$" manage=off
+yabai -m rule --add app="^Microsoft Teams$" manage=off
+yabai -m rule --add title='Settings$' manage=off
+yabai -m rule --add title='About' manage=off
+
+
+
+# echo 
+echo "yabai config"
