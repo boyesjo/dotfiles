@@ -1,0 +1,35 @@
+{
+  "title": "Caps Lock to hyper-light (esc if alone)",
+  "rules": [
+    {
+      "description": "Caps Lock to hyper-light (esc if alone)",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "caps_lock",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_control",
+              "modifiers": [
+                "right_gui",
+                "right_alt"
+              ]
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "escape"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    }
+  ]
+}
