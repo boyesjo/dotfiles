@@ -1,0 +1,59 @@
+## HYPER = rctrl + ralt + rcmd
+
+# float unfloat
+rctrl + ralt + rcmd - f : yabai -m window --toggle float
+
+# toogle split 
+rctrl + ralt + rcmd - s : yabai -m window --toggle split
+
+
+# change layout
+rctrl + ralt + rcmd - space : yabai -m space --layout bsp
+rctrl + ralt + rcmd + shift - space : yabai -m space --layout float
+
+# rotate window focus
+rctrl + ralt + rcmd - r : yabai -m window --rotate 90
+
+# mirror axes
+rctrl + ralt + rcmd - x : yabai -m window --mirror x-axis
+rctrl + ralt + rcmd - y : yabai -m window --mirror y-axis
+
+# moves focus between windows in the current focused display
+rctrl + ralt + rcmd - left : yabai -m window --focus west
+rctrl + ralt + rcmd - down : yabai -m window --focus south
+rctrl + ralt + rcmd - up : yabai -m window --focus north
+rctrl + ralt + rcmd - right : yabai -m window --focus east
+rctrl + ralt + rcmd - h : yabai -m window --focus west
+rctrl + ralt + rcmd - j : yabai -m window --focus south
+rctrl + ralt + rcmd - k : yabai -m window --focus north
+rctrl + ralt + rcmd - l : yabai -m window --focus east
+
+# move window
+shift + alt + cmd + ctrl - left : yabai -m window --warp west
+shift + alt + cmd + ctrl - down : yabai -m window --warp south
+shift + alt + cmd + ctrl - up : yabai -m window --warp north
+shift + alt + cmd + ctrl - right : yabai -m window --warp east
+shift + alt + cmd + ctrl - h : yabai -m window --warp west
+shift + alt + cmd + ctrl - j : yabai -m window --warp south
+shift + alt + cmd + ctrl - k : yabai -m window --warp north
+shift + alt + cmd + ctrl - l : yabai -m window --warp east
+
+# resize window
+rctrl + ralt + rcmd + cmd - h : yabai -m window --resize left:-10:0
+rctrl + ralt + rcmd + cmd - j : yabai -m window --resize bottom:0:-10
+rctrl + ralt + rcmd + cmd - k : yabai -m window --resize top:0:10
+rctrl + ralt + rcmd + cmd - l : yabai -m window --resize right:10:0
+rctrl + ralt + rcmd + cmd - left : yabai -m window --resize left:-10:0
+rctrl + ralt + rcmd + cmd - down : yabai -m window --resize bottom:0:-10
+rctrl + ralt + rcmd + cmd - up : yabai -m window --resize top:0:10
+rctrl + ralt + rcmd + cmd - right : yabai -m window --resize right:10:0
+
+# send window to space
+rctrl + ralt + rcmd - 1 : yabai -m window --space 1
+rctrl + ralt + rcmd - 2 : yabai -m window --space 2
+rctrl + ralt + rcmd - 3 : yabai -m window --space 3
+rctrl + ralt + rcmd - 4 : yabai -m window --space 4
+
+
+# restart yabai
+rctrl + ralt + rcmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
