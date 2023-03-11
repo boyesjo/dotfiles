@@ -57,11 +57,10 @@
 
 
 # send window to space
-{{ .hyperkey -}} - 1 : yabai -m window --space 1
-{{ .hyperkey -}} - 2 : yabai -m window --space 2
-{{ .hyperkey -}} - 3 : yabai -m window --space 3
-{{ .hyperkey -}} - 4 : yabai -m window --space 4
-
+{{ .hyperkey -}} + ctrl - left : yabai -m space --focus prev || yabai -m space --focus last
+{{ .hyperkey -}} + ctrl - right : yabai -m space --focus next || yabai -m space --focus first
+{{ .hyperkey -}} + ctrl - h : yabai -m space --focus prev || yabai -m space --focus last
+{{ .hyperkey -}} + ctrl - l : yabai -m space --focus next || yabai -m space --focus first
 
 # restart yabai
 {{ .hyperkey -}} - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
