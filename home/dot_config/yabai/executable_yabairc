@@ -40,7 +40,7 @@ yabai -m config external_bar all:0:0
 
 # rules
 ## makes system preferences always floating
-yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Raycast$" manage=off
 yabai -m rule --add title='Preferences$' manage=off
 yabai -m rule --add app="^System Information$" manage=off
