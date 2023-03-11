@@ -2,7 +2,7 @@
 romkatv/powerlevel10k
 
 # PLUGINS
-unixorn/fzf-zsh-plugin
+unixorn/fzf-zsh-plugin kind:defer
 Aloxaf/fzf-tab
 zsh-users/zsh-autosuggestions
 zsh-users/zsh-completions
