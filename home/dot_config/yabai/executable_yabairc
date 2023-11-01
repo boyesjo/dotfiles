@@ -23,7 +23,7 @@ yabai -m config mouse_action2 resize
 
 
 # set focus follows mouse mode (default: off, options: off, autoraise, autofocus)
-yabai -m config focus_follows_mouse off
+yabai -m config focus_follows_mouse autoraise
 
 # Specify which display a newly created window should be managed in.
 # default: The display in which the window is created (standard macOS behaviour).
