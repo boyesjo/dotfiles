@@ -57,10 +57,16 @@ alias cat="bat --theme=ansi"
 
 
 {{ if lookPath "brew" -}}
+
+# automatically set homebrew to arm/x86
+[[ $(arch) = "arm64" ]] &&
+    eval "$(/opt/homebrew/bin/brew shellenv)" ||
+    eval "$(/usr/local/Homebrew/bin/brew shellenv)"
+
 # export HOMEBREW=/opt/homebrew
 # Add zsh completion scripts installed via Homebrew
 # fpath=("$HOMEBREW/share/zsh/site-functions" $fpath)
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# eval "$(/opt/homebrew/bin/brew shellenv)"
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
 autoload -Uz compinit
