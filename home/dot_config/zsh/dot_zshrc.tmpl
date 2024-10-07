@@ -69,6 +69,8 @@ alias cat="bat --theme=ansi"
 # eval "$(/opt/homebrew/bin/brew shellenv)"
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
+export HOMEBREW_NO_EMOJI=1
+
 autoload -Uz compinit
 compinit
 {{ end -}}
