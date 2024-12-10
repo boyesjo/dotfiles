@@ -76,9 +76,8 @@ compinit
 {{ end -}}
 
 
-{{ if lookPath "kubectl" -}}
+
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-{{ end -}}
 
 # 
 export FZF_PATH="$HOME/.config/fzf"
