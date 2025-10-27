@@ -1,3 +1,7 @@
+Host fox.educloud.no
+	HostName fox.educloud.no
+	User ec-boyegs
+
 Host markov
 	HostName markov.math.ntnu.no
 	User boyegs
@@ -5,3 +9,7 @@ Host markov
 	PreferredAuthentications publickey
   	IdentityFile "~/.ssh/keys/markov_rsa"
 	LogLevel error
+
+Host pi
+	HostName 192.168.0.35
+	User boye
