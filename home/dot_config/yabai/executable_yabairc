@@ -50,3 +50,4 @@ yabai -m rule --add title='Settings$' manage=off
 yabai -m rule --add title='About' manage=off
 yabai -m rule --add title='About$' manage=off
 yabai -m rule --add title="HOTKEYWINDOW" manage=off
+yabai -m rule --add title="Quick Format Citation" manage=off
