@@ -35,16 +35,6 @@ unset __conda_setup
 # <<< conda initialize <<<
 {{ end -}}
 
-{{ if lookPath "eza" -}}
-alias ls="eza -F"
-alias l="eza -lF --git"
-alias la="eza -lba --git"
-{{ else -}}
-alias ls="ls -F"
-alias l="ls -lF"
-alias la="ls -lba"
-{{ end -}}
-
 {{ if lookPath "pyenv" -}}
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
@@ -57,7 +47,6 @@ alias cat="bat --theme=ansi"
 
 
 {{ if lookPath "brew" -}}
-
 # automatically set homebrew to arm/x86
 [[ $(arch) = "arm64" ]] &&
     eval "$(/opt/homebrew/bin/brew shellenv)" ||
@@ -76,10 +65,17 @@ compinit
 {{ end -}}
 
 
-
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-
-# 
+{{ if lookPath "eza" -}}
+alias ls="eza -F"
+alias l="eza -lF --git"
+alias la="eza -lba --git"
+{{ else -}}
+alias ls="ls -F"
+alias l="ls -lF"
+alias la="ls -lba"
+{{ end -}}
+  
+## FZF
 export FZF_PATH="$HOME/.config/fzf"
 
 
@@ -87,7 +83,6 @@ source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 antidote load
 compinit
 
-## FZF
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
 # set descriptions format to enable group support
