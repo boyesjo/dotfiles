@@ -1,66 +1,66 @@
-## HYPER = {{ .hyperkey -}}
+## HYPER = {{ .hyperkey }}
 # float unfloat
-{{ .hyperkey -}} - f : yabai -m window --toggle float; yabai -m window --resize abs:500:800
+{{ .hyperkey }} - f : yabai -m window --toggle float; yabai -m window --resize abs:500:800
 
 # toogle split 
-{{ .hyperkey -}} - s : yabai -m window --toggle split
+{{ .hyperkey }} - s : yabai -m window --toggle split
 
 # change layout
-{{ .hyperkey -}} - space : yabai -m space --layout bsp || yabai -m space balance
-{{ .hyperkey -}} + shift - space : yabai -m space --layout float
+{{ .hyperkey }} - space : yabai -m space --layout bsp || yabai -m space balance
+{{ .hyperkey }} + shift - space : yabai -m space --layout float
 
 # rotate window focus
-{{ .hyperkey -}} - r : yabai -m space --rotate 90
-{{ .hyperkey -}} + shift - r : yabai -m space --rotate 270
+{{ .hyperkey }} - r : yabai -m space --rotate 90
+{{ .hyperkey }} + shift - r : yabai -m space --rotate 270
 
 # mirror axes
-{{ .hyperkey -}} - x : yabai -m space --mirror x-axis
-{{ .hyperkey -}} - y : yabai -m space --mirror y-axis
+{{ .hyperkey }} - x : yabai -m space --mirror x-axis
+{{ .hyperkey }} - y : yabai -m space --mirror y-axis
 
 # moves focus between windows in the current focused display
-{{ .hyperkey -}} - left : yabai -m window --focus west
-{{ .hyperkey -}} - down : yabai -m window --focus south
-{{ .hyperkey -}} - up : yabai -m window --focus north
-{{ .hyperkey -}} - right : yabai -m window --focus east
-{{ .hyperkey -}} - h : yabai -m window --focus west
-{{ .hyperkey -}} - j : yabai -m window --focus south
-{{ .hyperkey -}} - k : yabai -m window --focus north
-{{ .hyperkey -}} - l : yabai -m window --focus east
+{{ .hyperkey }} - left : yabai -m window --focus west
+{{ .hyperkey }} - down : yabai -m window --focus south
+{{ .hyperkey }} - up : yabai -m window --focus north
+{{ .hyperkey }} - right : yabai -m window --focus east
+{{ .hyperkey }} - h : yabai -m window --focus west
+{{ .hyperkey }} - j : yabai -m window --focus south
+{{ .hyperkey }} - k : yabai -m window --focus north
+{{ .hyperkey }} - l : yabai -m window --focus east
 
 # move window   
-{{ .hyperkey -}} + shift - left : yabai -m window --warp west
-{{ .hyperkey -}} + shift - down : yabai -m window --warp south
-{{ .hyperkey -}} + shift - up : yabai -m window --warp north
-{{ .hyperkey -}} + shift - right : yabai -m window --warp east 
-{{ .hyperkey -}} + shift - h : yabai -m window --warp west
-{{ .hyperkey -}} + shift - j : yabai -m window --warp south
-{{ .hyperkey -}} + shift - k : yabai -m window --warp north
-{{ .hyperkey -}} + shift - l : yabai -m window --warp east
+{{ .hyperkey }} + shift - left : yabai -m window --warp west
+{{ .hyperkey }} + shift - down : yabai -m window --warp south
+{{ .hyperkey }} + shift - up : yabai -m window --warp north
+{{ .hyperkey }} + shift - right : yabai -m window --warp east 
+{{ .hyperkey }} + shift - h : yabai -m window --warp west
+{{ .hyperkey }} + shift - j : yabai -m window --warp south
+{{ .hyperkey }} + shift - k : yabai -m window --warp north
+{{ .hyperkey }} + shift - l : yabai -m window --warp east
 
 
 # resize window
-{{ .hyperkey -}} + cmd - h : yabai -m window --resize left:-10:0; yabai -m window --resize right:-10:0
-{{ .hyperkey -}} + cmd - j : yabai -m window --resize bottom:0:-10; yabai -m window --resize top:0:-10
-{{ .hyperkey -}} + cmd - k : yabai -m window --resize top:0:10; yabai -m window --resize bottom:0:10
-{{ .hyperkey -}} + cmd - l : yabai -m window --resize right:10:0; yabai -m window --resize left:10:0
-{{ .hyperkey -}} + cmd - left : yabai -m window --resize left:-10:0; yabai -m window --resize right:-10:0
-{{ .hyperkey -}} + cmd - down : yabai -m window --resize bottom:0:-10; yabai -m window --resize top:0:-10
-{{ .hyperkey -}} + cmd - up : yabai -m window --resize top:0:10; yabai -m window --resize bottom:0:10
-{{ .hyperkey -}} + cmd - right : yabai -m window --resize right:10:0; yabai -m window --resize left:10:0
+{{ .hyperkey }} + cmd - h : yabai -m window --resize left:-10:0; yabai -m window --resize right:-10:0
+{{ .hyperkey }} + cmd - j : yabai -m window --resize bottom:0:-10; yabai -m window --resize top:0:-10
+{{ .hyperkey }} + cmd - k : yabai -m window --resize top:0:10; yabai -m window --resize bottom:0:10
+{{ .hyperkey }} + cmd - l : yabai -m window --resize right:10:0; yabai -m window --resize left:10:0
+{{ .hyperkey }} + cmd - left : yabai -m window --resize left:-10:0; yabai -m window --resize right:-10:0
+{{ .hyperkey }} + cmd - down : yabai -m window --resize bottom:0:-10; yabai -m window --resize top:0:-10
+{{ .hyperkey }} + cmd - up : yabai -m window --resize top:0:10; yabai -m window --resize bottom:0:10
+{{ .hyperkey }} + cmd - right : yabai -m window --resize right:10:0; yabai -m window --resize left:10:0
 
 # equalize sices
-{{ .hyperkey -}} - e : yabai -m space --balance
+{{ .hyperkey }} - e : yabai -m space --balance
 
 # full screen
-{{ .hyperkey -}} + shift - m : yabai -m window --toggle zoom-fullscreen
-{{ .hyperkey -}} - m : yabai -m window --toggle native-fullscreen
+{{ .hyperkey }} + shift - m : yabai -m window --toggle zoom-fullscreen
+{{ .hyperkey }} - m : yabai -m window --toggle native-fullscreen
 
 
 # send window to next space or screen and focus
-{{ .hyperkey -}} + ctrl - right : yabai -m window --space next
-{{ .hyperkey -}} + ctrl - left : yabai -m window --space prev
-{{ .hyperkey -}} + ctrl - up : yabai -m window --display prev
-{{ .hyperkey -}} + ctrl - down : yabai -m window --display next
+{{ .hyperkey }} + ctrl - right : yabai -m window --space next
+{{ .hyperkey }} + ctrl - left : yabai -m window --space prev
+{{ .hyperkey }} + ctrl - up : yabai -m window --display next 
+{{ .hyperkey }} + ctrl - down : yabai -m window --display prev
 
 # restart yabai
-{{ .hyperkey -}} - z: launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+{{ .hyperkey }} - z: launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
