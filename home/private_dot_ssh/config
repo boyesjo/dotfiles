@@ -13,3 +13,13 @@ Host markov
 Host pi
 	HostName 192.168.0.35
 	User boye
+
+Host ifi
+	HostName ifi.uio.no
+	User boyegs
+	ProxyJump boyegs@uio.no
+
+Host samsida
+	HostName samsida.hpc.uio.no
+	User boyegs
+	ProxyJump boyegs@ifi.uio.no
