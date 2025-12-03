@@ -1,14 +1,7 @@
-Host fox.educloud.no
+Host fox
 	HostName fox.educloud.no
 	User ec-boyegs
-
-Host markov
-	HostName markov.math.ntnu.no
-	User boyegs
-	Port 22
-	PreferredAuthentications publickey
-  	IdentityFile "~/.ssh/keys/markov_rsa"
-	LogLevel error
+	ControlPath ~/.ssh/controlsock-%h-%p
 
 Host pi
 	HostName 192.168.0.35
