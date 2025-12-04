@@ -66,14 +66,20 @@ compinit
 
 
 {{ if lookPath "eza" -}}
+# EZA
 alias ls="eza -F"
-alias l="eza -lF --git"
-alias la="eza -lba --git"
+alias la="eza -lBa --git"
+alias lt="eza -T --git"
+alias lt2="eza -T --git -L 2"
 {{ else -}}
+# LS
 alias ls="ls -F"
-alias l="ls -lF"
 alias la="ls -lba"
+alias lt="tree --gitignore"
+alias lt="tree --gitignore -L 2"
 {{ end -}}
+
+
   
 ## FZF
 export FZF_PATH="$HOME/.config/fzf"
