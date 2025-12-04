@@ -65,21 +65,6 @@ compinit
 {{ end -}}
 
 
-{{ if lookPath "eza" -}}
-# EZA
-alias ls="eza -F"
-alias la="eza -lBa --git"
-alias lt="eza -T --git"
-alias lt2="eza -T --git -L 2"
-{{ else -}}
-# LS
-alias ls="ls -F"
-alias la="ls -lba"
-alias lt="tree --gitignore"
-alias lt="tree --gitignore -L 2"
-{{ end -}}
-
-
   
 ## FZF
 export FZF_PATH="$HOME/.config/fzf"
@@ -88,6 +73,27 @@ export FZF_PATH="$HOME/.config/fzf"
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 antidote load
 compinit
+
+{{ if lookPath "eza" -}}
+# EZA
+alias l='eza -lah'
+alias la='eza -lBh --git'
+alias ll='eza -lhB --git'
+alias ls="eza"
+alias lsa='eza -lahB --git'
+alias lt="eza -T --git"
+alias lt2="eza -T --git -L 2"
+{{ else -}}
+# LS
+alias l='ls -lah'
+alias la='ls -lAh'
+alias ll='ls -lh'
+alias ls='ls -G'
+alias lsa='ls -lah'
+alias lt="tree --gitignore"
+alias lt2="tree --gitignore -L 2"
+{{ end -}}
+
 
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
