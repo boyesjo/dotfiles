@@ -20,3 +20,7 @@ Host samsida
 	HostName samsida.hpc.uio.no
 	User boyegs
 	ProxyJump ifi
+
+Host olivia 
+	HostName olivia.sigma2.no
+	User boyegs
