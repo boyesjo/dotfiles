@@ -24,3 +24,7 @@ Host samsida
 Host olivia 
 	HostName olivia.sigma2.no
 	User boyegs
+
+Host lumi
+	HostName lumi.csc.fi
+	User boyegs
