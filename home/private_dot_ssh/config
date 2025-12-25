@@ -28,3 +28,7 @@ Host olivia
 Host lumi
 	HostName lumi.csc.fi
 	User boyegs
+
+Host thinkcentre
+	HostName 192.168.0.24
+	User boye
