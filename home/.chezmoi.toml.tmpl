@@ -5,9 +5,10 @@
 [git]
     autoCommit = true
     autoPush = true
+    command = "git"
+    args = ["--no-pager"]
 
 [data]
     email = "boyegs@gmail.com"
     name = "Boye Sjo"
     hyperkey = "rctrl + ralt + rcmd"
-    use_conda = {{ if lookPath "conda" -}}"yes"{{- else -}}"no"{{- end }}
