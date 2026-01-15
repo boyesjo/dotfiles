@@ -52,22 +52,24 @@ compinit
 
 {{ if lookPath "eza" -}}
 # EZA
-alias l='eza -laB'
-alias la='eza -lBA --git'
-alias ll='eza -lB --git'
 alias ls="eza"
-alias lsa='eza -lahB --git'
+alias l="eza -l --git"
+alias lh="eza -A"
+alias ll='eza -lA --git'
 alias lt="eza -T --git"
 alias lt2="eza -T --git -L 2"
+alias lt3="eza -T --git -L 3"
+alias lt4="eza -T --git -L 4"
 {{ else -}}
 # LS
-alias l='ls -lah'
-alias la='ls -lAh'
-alias ll='ls -lh'
 alias ls='ls -G'
-alias lsa='ls -lah'
+alias l='ls -lh'
+alias lh="ls -A"
+alias ll='ls -lAh'
 alias lt="tree --gitignore"
 alias lt2="tree --gitignore -L 2"
+alias lt3="tree --gitignore -L 3"
+alias lt4="tree --gitignore -L 4"
 {{ end -}}
 
 
