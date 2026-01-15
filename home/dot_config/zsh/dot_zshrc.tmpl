@@ -19,12 +19,6 @@ path+=$HOME/bin
 path+=$HOME/.local/bin
 
 
-{{ if lookPath "pyenv" -}}
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-{{ end -}}
-
 {{ if lookPath "bat" -}}
 alias cat="bat --theme=ansi"
 {{ end -}}
@@ -43,10 +37,10 @@ alias cat="bat --theme=ansi"
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
 export HOMEBREW_NO_EMOJI=1
+{{ end -}}
 
 autoload -Uz compinit
 compinit
-{{ end -}}
   
 ## FZF
 export FZF_PATH="$HOME/.config/fzf"
