@@ -54,6 +54,7 @@ yabai -m rule --add app="^Raycast$" manage=off
 yabai -m rule --add title='Preferences$' manage=off
 yabai -m rule --add app="^System Information$" manage=off
 yabai -m rule --add app="^Microsoft Teams$" manage=off
+yabai -m rule --add app="^Archive Utility$" manage=off
 yabai -m rule --add title='Settings$' manage=off
 yabai -m rule --add title='About' manage=off
 yabai -m rule --add title='About$' manage=off
