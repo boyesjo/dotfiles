@@ -24,6 +24,7 @@ Host samsida
 Host olivia 
 	HostName olivia.sigma2.no
 	User boyegs
+	ForwardAgent yes
 
 Host lumi
 	HostName lumi.csc.fi
