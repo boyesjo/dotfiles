@@ -1,0 +1,17 @@
+{{ if eq .chezmoi.os "linux" -}}
+# ~/.bash_profile — managed by chezmoi (linux only)
+#
+# System modules/env are set by /etc/profile.d before this file runs and are
+# inherited across the exec below, so we don't reproduce them here.
+
+# Standard: load ~/.bashrc for login shells (keeps env for non-interactive logins)
+[ -f ~/.bashrc ] && . ~/.bashrc
+
+# Hand interactive login shells over to zsh.
+# The interactive guard ($- contains 'i') keeps slurm jobs, scp/sftp, and
+# `ssh host <command>` on bash so they never break.
+if [[ $- == *i* ]] && command -v zsh >/dev/null 2>&1; then
+  export SHELL="$(command -v zsh)"
+  exec zsh -l
+fi
+{{ end -}}

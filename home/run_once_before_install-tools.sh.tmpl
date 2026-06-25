@@ -1,0 +1,30 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/sh
+# Install user-local CLI tools (no root) into ~/.local/bin, which is already
+# on $PATH via .config/zsh/.zshrc. Runs before dotfiles are applied so the
+# lookPath guards in .zsh_plugins.txt / .zshrc resolve correctly.
+# Assumes x86_64. Idempotent: skips anything already installed.
+set -eu
+
+BIN="$HOME/.local/bin"
+mkdir -p "$BIN"
+
+# --- eza (static musl binary, avoids old-glibc errors) ---
+if ! command -v eza >/dev/null 2>&1 && [ ! -x "$BIN/eza" ]; then
+  echo "Installing eza -> $BIN"
+  tmp="$(mktemp -d)"
+  curl -fL https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-musl.tar.gz \
+    | tar xz -C "$tmp"
+  mv -f "$tmp/eza" "$BIN/eza"
+  chmod +x "$BIN/eza"
+  rm -rf "$tmp"
+fi
+
+# --- fzf (prebuilt static binary; --bin touches no shell configs) ---
+if ! command -v fzf >/dev/null 2>&1 && [ ! -x "$BIN/fzf" ]; then
+  echo "Installing fzf -> $BIN"
+  [ -d "$HOME/.fzf" ] || git clone --depth 1 https://github.com/junegunn/fzf "$HOME/.fzf"
+  "$HOME/.fzf/install" --bin
+  ln -sf "$HOME/.fzf/bin/fzf" "$BIN/fzf"
+fi
+{{ end -}}

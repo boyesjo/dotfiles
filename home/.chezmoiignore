@@ -9,6 +9,11 @@ Library/**
 .config/karabiner/**
 {{ end }}
 
+{{ if eq .chezmoi.os "darwin" }}
+# linux-only login-shell trampoline
+.bash_profile
+{{ end }}
+
 {{ if not (lookPath "yabai") }}
 .config/yabai/**
 {{ end }}
