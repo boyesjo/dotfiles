@@ -1,7 +1,11 @@
 [edit]
+{{- if eq .chezmoi.os "darwin" }}
     command = "code"
     args = ["--wait", "--disable-workspace-trust"]
-    
+{{- else }}
+    command = "nano"
+{{- end }}
+
 [git]
     autoCommit = true
     autoPush = true
