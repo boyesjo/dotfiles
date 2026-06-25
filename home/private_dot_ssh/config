@@ -1,7 +1,6 @@
 Host fox
 	HostName fox.educloud.no
 	User ec-boyegs
-	ControlPath ~/.ssh/controlsock-%h-%p
 
 Host pi
 	HostName 192.168.0.35
@@ -28,8 +27,15 @@ Host olivia
 
 Host lumi
 	HostName lumi.csc.fi
-	User boyegs
+	User sjoboye
+	# IdentityFile ~/.ssh/lumi
+
 
 Host thinkcentre
 	HostName 192.168.0.24
 	User boye
+
+Host *
+    ControlMaster auto
+    ControlPersist 24h
+    ControlPath ~/.ssh/controlsock/%r@%h:%p
