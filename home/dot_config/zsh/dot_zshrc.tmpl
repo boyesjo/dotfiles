@@ -50,16 +50,11 @@ source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 antidote load
 compinit
 
-# Slurm: load its bash completion into zsh
+# Slurm: zsh-native flag completion (parses each command's --help).
+# Slurm's own slurm_completion.sh refuses to run outside bash, so we don't use it.
 if command -v sbatch >/dev/null 2>&1; then
-  autoload -Uz bashcompinit && bashcompinit
-  for f in \
-    /usr/share/bash-completion/completions/slurm_completion.sh \
-    /usr/share/bash-completion/completions/slurm \
-    /etc/bash_completion.d/slurm \
-    /etc/bash_completion.d/slurm_completion.sh; do
-    [ -r "$f" ] && source "$f" && break
-  done
+  compdef _gnu_generic sbatch srun salloc squeue scancel sinfo scontrol \
+                       sacct sacctmgr sstat sbcast sattach sprio sshare sdiag
 fi
 
 {{ if lookPath "eza" -}}
