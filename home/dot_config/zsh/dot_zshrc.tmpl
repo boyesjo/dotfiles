@@ -50,6 +50,18 @@ source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 antidote load
 compinit
 
+# Slurm: load its bash completion into zsh
+if command -v sbatch >/dev/null 2>&1; then
+  autoload -Uz bashcompinit && bashcompinit
+  for f in \
+    /usr/share/bash-completion/completions/slurm_completion.sh \
+    /usr/share/bash-completion/completions/slurm \
+    /etc/bash_completion.d/slurm \
+    /etc/bash_completion.d/slurm_completion.sh; do
+    [ -r "$f" ] && source "$f" && break
+  done
+fi
+
 {{ if lookPath "eza" -}}
 # EZA
 alias ls="eza"
