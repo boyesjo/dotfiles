@@ -1,1 +1,2 @@
 export ZDOTDIR="$HOME/.config/zsh"
+[ -r "$ZDOTDIR/.zshenv.local" ] && source "$ZDOTDIR/.zshenv.local"
