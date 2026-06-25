@@ -3,3 +3,15 @@ README.md
 
 scripts/
 exports/
+
+{{ if ne .chezmoi.os "darwin" }}
+Library/**
+.config/karabiner/**
+{{ end }}
+
+{{ if not (lookPath "yabai") }}
+.config/yabai/**
+{{ end }}
+{{ if not (lookPath "skhd") }}
+.config/skhd/**
+{{ end }}
