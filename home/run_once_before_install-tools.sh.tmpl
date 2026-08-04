@@ -27,4 +27,26 @@ if ! command -v fzf >/dev/null 2>&1 && [ ! -x "$BIN/fzf" ]; then
   "$HOME/.fzf/install" --bin
   ln -sf "$HOME/.fzf/bin/fzf" "$BIN/fzf"
 fi
+
+# --- fastfetch (static musl binary, avoids old-glibc errors) ---
+if ! command -v fastfetch >/dev/null 2>&1 && [ ! -x "$BIN/fastfetch" ]; then
+  echo "Installing fastfetch -> $BIN"
+  tmp="$(mktemp -d)"
+  curl -fL https://github.com/fastfetch-cli/fastfetch/releases/latest/download/fastfetch-musl-amd64.tar.gz \
+    | tar xz -C "$tmp"
+  mv -f "$tmp/usr/bin/fastfetch" "$BIN/fastfetch"
+  chmod +x "$BIN/fastfetch"
+  rm -rf "$tmp"
+fi
+
+# --- slurmer (SLURM job TUI; pinned since release asset name embeds version) ---
+if command -v squeue >/dev/null 2>&1 && ! command -v slurmer >/dev/null 2>&1 && [ ! -x "$BIN/slurmer" ]; then
+  echo "Installing slurmer -> $BIN"
+  tmp="$(mktemp -d)"
+  curl -fL https://github.com/wjwei-handsome/Slurmer/releases/download/v0.1.2/slurmer-v0.1.2-linux-x86_64.tar.gz \
+    | tar xz -C "$tmp"
+  mv -f "$tmp/slurmer" "$BIN/slurmer"
+  chmod +x "$BIN/slurmer"
+  rm -rf "$tmp"
+fi
 {{ end -}}
