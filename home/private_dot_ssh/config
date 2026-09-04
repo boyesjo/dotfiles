@@ -29,7 +29,9 @@ Host lumi
 	HostName lumi.csc.fi
 	User sjoboye
 	# IdentityFile ~/.ssh/lumi
-
+	ControlMaster no
+    ControlPath none
+    ControlPersist no
 
 Host thinkcentre
 	HostName 192.168.0.24

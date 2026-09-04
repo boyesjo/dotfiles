@@ -5,4 +5,4 @@
     stripComponents = 1
     refreshPeriod = "168h"
     [".config/zsh/.antidote".pull]
-        args = ["--depth=1"]
+        args = ["--depth=1", "-X", "theirs", "--allow-unrelated-histories"]
