@@ -12,6 +12,9 @@ fi
 mkdir -p ~/.config/zsh/completions
 fpath=(~/.config/zsh/completions $fpath)
 
+autoload -Uz compinit
+compinit
+
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nano'
@@ -43,16 +46,15 @@ FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 export HOMEBREW_NO_EMOJI=1
 {{ end -}}
 
+autoload -Uz compinit
+compinit
+
 ## FZF
 export FZF_PATH="$HOME/.config/fzf"
 
 
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 antidote load
-
-# Single compinit, run last: Homebrew and antidote have both had their say on
-# fpath by now, so this is the one scan that needs to see everything.
-autoload -Uz compinit
 compinit
 
 # Slurm: zsh-native flag completion (parses each command's --help).
