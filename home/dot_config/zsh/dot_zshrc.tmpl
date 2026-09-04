@@ -5,8 +5,12 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f $ZDOTDIR/.p10k.zsh ]] || source $ZDOTDIR/.p10k.zsh
 
-autoload -Uz compinit
-compinit
+# Personal completion scripts (e.g. `slam completion zsh > ...`) go here, not
+# wherever `${fpath[1]}` happens to point mid-session -- that's plugin load
+# order dependent, and can land inside an antidote plugin's own directory,
+# which then gets wiped on the next update.
+mkdir -p ~/.config/zsh/completions
+fpath=(~/.config/zsh/completions $fpath)
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -39,15 +43,16 @@ FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 export HOMEBREW_NO_EMOJI=1
 {{ end -}}
 
-autoload -Uz compinit
-compinit
-  
 ## FZF
 export FZF_PATH="$HOME/.config/fzf"
 
 
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 antidote load
+
+# Single compinit, run last: Homebrew and antidote have both had their say on
+# fpath by now, so this is the one scan that needs to see everything.
+autoload -Uz compinit
 compinit
 
 # Slurm: zsh-native flag completion (parses each command's --help).
