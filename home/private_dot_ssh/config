@@ -37,6 +37,13 @@ Host thinkcentre
 	HostName 192.168.0.24
 	User boye
 
+Host dsblab
+    HostName 127.0.0.1
+    Port 2222
+    User boyesjo
+    IdentityFile ~/.ssh/id_ed25519
+    HostKeyAlias dsblab-tunnel
+
 Host *
     ControlMaster auto
     ControlPersist 24h
