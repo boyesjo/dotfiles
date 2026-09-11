@@ -7,10 +7,19 @@
 # Standard: load ~/.bashrc for login shells (keeps env for non-interactive logins)
 [ -f ~/.bashrc ] && . ~/.bashrc
 
-# Hand interactive login shells over to zsh.
-# The interactive guard ($- contains 'i') keeps slurm jobs, scp/sftp, and
-# `ssh host <command>` on bash so they never break.
-if [[ $- == *i* ]] && command -v zsh >/dev/null 2>&1; then
+# Hand over to zsh only for a real person sitting at a terminal. Every other
+# way a login shell gets started must stay on bash and must still run whatever
+# it was asked to run:
+#   $- has 'i'               interactive only; excludes slurm jobs, scp/sftp,
+#                            `ssh host cmd`, `bash -lc cmd`
+#   BASH_EXECUTION_STRING    set whenever bash got -c. `bash -lic '...'` is
+#                            interactive *and* has a command, and the exec
+#                            below would silently swallow it. VS Code
+#                            Remote-SSH and other env probes invoke it that way
+#   -t 0 -t 1                real tty both ends, not a pipe
+#   NO_ZSH_EXEC              escape hatch for debugging the bash side
+if [[ $- == *i* && -z $BASH_EXECUTION_STRING && -t 0 && -t 1 && -z $NO_ZSH_EXEC ]] &&
+   command -v zsh >/dev/null 2>&1; then
   export SHELL="$(command -v zsh)"
   exec zsh -l
 fi
