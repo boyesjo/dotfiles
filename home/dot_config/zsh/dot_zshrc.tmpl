@@ -5,8 +5,11 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f $ZDOTDIR/.p10k.zsh ]] || source $ZDOTDIR/.p10k.zsh
 
-# Personal completion scripts (e.g. `slam completion zsh > ...`) go here, not
-# wherever `${fpath[1]}` happens to point mid-session -- that's plugin load
+# Personal completion scripts go here:
+#   slam completion zsh          > ~/.config/zsh/completions/_slam
+#   rustup completions zsh       > ~/.config/zsh/completions/_rustup
+#   rustup completions zsh cargo > ~/.config/zsh/completions/_cargo
+# Not wherever `${fpath[1]}` happens to point mid-session -- that's plugin load
 # order dependent, and can land inside an antidote plugin's own directory,
 # which then gets wiped on the next update.
 mkdir -p ~/.config/zsh/completions

@@ -1,0 +1,5 @@
+[ -r "$ZDOTDIR/.zshenv.local" ] && source "$ZDOTDIR/.zshenv.local"
+
+# Rust toolchain: ~/.cargo/env prepends ~/.cargo/bin to PATH. Lives here rather
+# than .zshrc so non-interactive shells (ssh host cmd, editor tooling) see cargo.
+[ -r "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
