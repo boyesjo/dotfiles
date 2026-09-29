@@ -33,6 +33,10 @@ path+=$HOME/.local/bin
 alias cat="bat --theme=ansi"
 {{ end -}}
 
+{{ if lookPath "claude" -}}
+alias claude-work="CLAUDE_CONFIG_DIR=~/.claude-work claude"
+{{ end -}}
+
 
 {{ if lookPath "brew" -}}
 # automatically set homebrew to arm/x86
