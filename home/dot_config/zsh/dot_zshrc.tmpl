@@ -96,6 +96,9 @@ alias lt4="tree --gitignore -L 4"
 
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
+# keep slam completions in the order the binary returns (values before flags)
+zstyle ':completion:*:slam:*' sort false
+zstyle ':fzf-tab:complete:slam:*' fzf-flags --no-sort
 # set descriptions format to enable group support
 zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
