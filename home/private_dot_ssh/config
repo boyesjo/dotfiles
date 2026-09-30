@@ -43,6 +43,7 @@ Host dsblab
     User boyesjo
     IdentityFile ~/.ssh/id_ed25519
     HostKeyAlias dsblab-tunnel
+    ProxyCommand /Users/boyegs/.local/bin/dsblab-ssh-proxy.sh
 
 Host *
     ControlMaster auto
