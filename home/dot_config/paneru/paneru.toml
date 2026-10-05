@@ -17,6 +17,65 @@ title = ".*"
 horizontal_padding = 4
 vertical_padding = 4
 
+# ---- Always float (rules only set `floating`, so they never conflict with windows.all) ----
+# Fixed-size utilities and settings windows
+[windows.system_settings]
+title = ".*"
+bundle_id = "com.apple.systempreferences"
+floating = true
+
+[windows.calculator]
+title = ".*"
+bundle_id = "com.apple.calculator"
+floating = true
+
+[windows.archive_utility]
+title = ".*"
+bundle_id = "com.apple.archiveutility"
+floating = true
+
+[windows.iphone_mirroring]
+title = ".*"
+bundle_id = "com.apple.ScreenContinuity"
+floating = true
+
+[windows.karabiner_settings]
+title = ".*"
+bundle_id = "org.pqrs.Karabiner-Elements.Settings"
+floating = true
+
+[windows.karabiner_eventviewer]
+title = ".*"
+bundle_id = "org.pqrs.Karabiner-EventViewer"
+floating = true
+
+# Video and calls
+[windows.quicktime]
+title = ".*"
+bundle_id = "com.apple.QuickTimePlayerX"
+floating = true
+
+[windows.iina]
+title = ".*"
+bundle_id = "com.colliderli.iina"
+floating = true
+
+[windows.facetime]
+title = ".*"
+bundle_id = "com.apple.FaceTime"
+floating = true
+
+[windows.zoom]
+title = ".*"
+bundle_id = "us.zoom.xos"
+floating = true
+
+# Dialogs inside apps that otherwise tile
+[windows.finder_info]
+title = " Info$"            # Get Info windows ("<name> Info")
+bundle_id = "com.apple.finder"
+floating = true
+
 [swipe]
 continuous = false          # don't overscroll past first/last window
 sensitivity = 0.1           # multiplier, 0.1–2.0 (default 0.35)
@@ -55,6 +114,7 @@ window_stack       = "ctrl + alt - leftbracket"
 window_unstack     = "ctrl + alt - rightbracket"
 window_tabbeddisplay = "ctrl + alt - t"
 window_nextdisplay = ["ctrl + alt + cmd - rightarrow", "ctrl + alt + cmd - leftarrow"]
+window_copyrule    = "ctrl + alt + shift - c"   # copy a [windows.*] rule for the focused window
 
 restart = "ctrl + alt + shift - r"
 quit    = "ctrl + alt - q"
