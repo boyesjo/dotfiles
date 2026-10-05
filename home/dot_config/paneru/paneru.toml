@@ -3,7 +3,7 @@
 focus_follows_mouse = true
 mouse_follows_focus = false
 animation_speed = 15                           # unset = instant snapping
-preset_column_widths = [0.33, 0.5, 0.66, 1.0]  # Rectangle thirds/halves
+preset_column_widths = [0.25, 0.33, 0.5, 0.66, 0.75, 0.9, 1.0] 
 
 # Rectangle-like 8px gaps: 4px screen edge + 4px per window side = 8 everywhere
 [padding]
