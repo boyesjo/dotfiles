@@ -37,7 +37,17 @@ Host thinkcentre
 	HostName 192.168.0.24
 	User boye
 
+# Tailscale. Direct WireGuard, no daily token, no relay quota. Same sshd and the
+# same host key as the dev tunnel path, so both share one known_hosts entry.
 Host dsblab
+    HostName dsblab.tail2b174d.ts.net
+    User boyesjo
+    IdentityFile ~/.ssh/id_ed25519
+    HostKeyAlias dsblab-tunnel
+
+# The old Dev Tunnels path, kept as a fallback while Tailscale proves itself.
+# Needs an interactive devtunnel login roughly daily; the ProxyCommand runs it.
+Host dsblab-devtunnel
     HostName 127.0.0.1
     Port 2222
     User boyesjo
