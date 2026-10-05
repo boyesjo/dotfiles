@@ -1,0 +1,60 @@
+# Caps Lock = ctrl + alt (Karabiner). Shift adds "move".
+[options]
+focus_follows_mouse = true
+mouse_follows_focus = false
+animation_speed = 15                           # unset = instant snapping
+preset_column_widths = [0.33, 0.5, 0.66, 1.0]  # Rectangle thirds/halves
+
+# Rectangle-like 8px gaps: 4px screen edge + 4px per window side = 8 everywhere
+[padding]
+top = 4
+bottom = 4
+left = 4
+right = 4
+
+[windows.all]
+title = ".*"
+horizontal_padding = 4
+vertical_padding = 4
+
+[swipe]
+continuous = false          # don't overscroll past first/last window
+sensitivity = 0.1           # multiplier, 0.1–2.0 (default 0.35)
+deceleration = 1.0          # 1.0–10.0, higher = stops sooner (default 4.0)
+
+[swipe.gesture]
+fingers_count = 3           # 3-finger horizontal swipe slides strip
+vertical = false            # no virtual workspaces; leave vertical swipes alone
+
+[swipe.scroll]
+modifier = "ctrl + alt"     # Caps + two-finger scroll / mouse wheel
+
+[decorations]
+workspace_menu_status = false   # no virtual workspace indicator
+workspace_popup_status = false
+
+[bindings]
+window_focus_west  = ["ctrl + alt - h", "ctrl + alt - leftarrow"]
+window_focus_east  = ["ctrl + alt - l", "ctrl + alt - rightarrow"]
+window_focus_north = ["ctrl + alt - k", "ctrl + alt - uparrow"]
+window_focus_south = ["ctrl + alt - j", "ctrl + alt - downarrow"]
+window_swap_west   = ["ctrl + alt + shift - h", "ctrl + alt + shift - leftarrow"]
+window_swap_east   = ["ctrl + alt + shift - l", "ctrl + alt + shift - rightarrow"]
+window_swap_north  = ["ctrl + alt + shift - k", "ctrl + alt + shift - uparrow"]
+window_swap_south  = ["ctrl + alt + shift - j", "ctrl + alt + shift - downarrow"]
+window_focus_first = "ctrl + alt - a"
+window_focus_last  = "ctrl + alt - e"
+
+window_fullwidth   = "ctrl + alt - return"      # Rectangle: maximize
+window_center      = "ctrl + alt - c"           # Rectangle: center
+window_grow        = ["ctrl + alt - equal", "ctrl + alt - r"]  # Rectangle: larger
+window_shrink      = "ctrl + alt - minus"       # Rectangle: smaller
+window_balance     = "ctrl + alt - b"
+window_manage      = "ctrl + alt - f"           # toggle float
+window_stack       = "ctrl + alt - leftbracket"
+window_unstack     = "ctrl + alt - rightbracket"
+window_tabbeddisplay = "ctrl + alt - t"
+window_nextdisplay = ["ctrl + alt + cmd - rightarrow", "ctrl + alt + cmd - leftarrow"]
+
+restart = "ctrl + alt + shift - r"
+quit    = "ctrl + alt - q"
