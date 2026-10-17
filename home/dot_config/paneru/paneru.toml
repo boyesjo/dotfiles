@@ -1,9 +1,17 @@
 # Caps Lock = ctrl + alt (Karabiner). Shift adds "move".
 [options]
-focus_follows_mouse = true
+focus_follows_mouse = false
 mouse_follows_focus = false
-animation_speed = 15                           # unset = instant snapping
-preset_column_widths = [0.25, 0.33, 0.5, 0.66, 0.75, 0.9, 1.0] 
+preset_column_widths = [0.25, 0.33, 0.5, 0.66, 0.75, 0.9, 1.0]
+disable_native_tabs = true                     # skip the 1 s AX sweep of every app (can hitch mid-swipe)
+auto_center = true
+create_virtual_workspace_automatically = false
+window_resize_cycle = true
+window_hidden_ratio = 0.15
+reap_empty_workspaces = true
+virtual_workspace_animations = true
+animation_speed = 15
+sliver_width = 5
 
 # Rectangle-like 8px gaps: 4px screen edge + 4px per window side = 8 everywhere
 [padding]
@@ -19,10 +27,6 @@ vertical_padding = 4
 
 # ---- Always float (rules only set `floating`, so they never conflict with windows.all) ----
 # Fixed-size utilities and settings windows
-[windows.system_settings]
-title = ".*"
-bundle_id = "com.apple.systempreferences"
-floating = true
 
 [windows.calculator]
 title = ".*"
@@ -37,11 +41,6 @@ floating = true
 [windows.iphone_mirroring]
 title = ".*"
 bundle_id = "com.apple.ScreenContinuity"
-floating = true
-
-[windows.karabiner_settings]
-title = ".*"
-bundle_id = "org.pqrs.Karabiner-Elements.Settings"
 floating = true
 
 [windows.karabiner_eventviewer]
@@ -76,45 +75,95 @@ title = " Info$"            # Get Info windows ("<name> Info")
 bundle_id = "com.apple.finder"
 floating = true
 
+[windows.coteditor]
+title = "Find$"
+bundle_id = "com.coteditor.CotEditor"
+floating = true
+
+# Browser extension popups (Bitwarden, ...): untitled, and closed by losing focus
+[windows.arc_popups]
+title = "^$"
+bundle_id = "company.thebrowser.Browser"
+floating = true
+
+[windows.cisco_secure_client]
+title = ".*"
+bundle_id = "com.cisco.secureclient.gui"
+floating = true
+
 [swipe]
-continuous = false          # don't overscroll past first/last window
-sensitivity = 0.1           # multiplier, 0.1–2.0 (default 0.35)
-deceleration = 1.0          # 1.0–10.0, higher = stops sooner (default 4.0)
+continuous = true          # strip may scroll past first/last window
+sensitivity = 0.3          # 0.1–2.0 (default 0.35); Caps-scroll speed ~ s², 3-finger swipe ~ s
+deceleration = 10          # 3-finger glide only, max 10 (default 4.0); Caps-scroll uses macOS momentum
 
 [swipe.gesture]
 fingers_count = 3           # 3-finger horizontal swipe slides strip
 vertical = false            # no virtual workspaces; leave vertical swipes alone
+direction = "Natural"
 
 [swipe.scroll]
 modifier = "ctrl + alt"     # Caps + two-finger scroll / mouse wheel
+window_step = true
 
 [decorations]
 workspace_menu_status = false   # no virtual workspace indicator
 workspace_popup_status = false
 
 [bindings]
-window_focus_west  = ["ctrl + alt - h", "ctrl + alt - leftarrow"]
-window_focus_east  = ["ctrl + alt - l", "ctrl + alt - rightarrow"]
-window_focus_north = ["ctrl + alt - k", "ctrl + alt - uparrow"]
-window_focus_south = ["ctrl + alt - j", "ctrl + alt - downarrow"]
-window_swap_west   = ["ctrl + alt + shift - h", "ctrl + alt + shift - leftarrow"]
-window_swap_east   = ["ctrl + alt + shift - l", "ctrl + alt + shift - rightarrow"]
-window_swap_north  = ["ctrl + alt + shift - k", "ctrl + alt + shift - uparrow"]
-window_swap_south  = ["ctrl + alt + shift - j", "ctrl + alt + shift - downarrow"]
-window_focus_first = "ctrl + alt - a"
-window_focus_last  = "ctrl + alt - e"
+# The switcher's recommended set, to try out; the previous set is in paneru.toml.before-recommended
+window_focus_west        = ["ctrl + alt - leftarrow", "ctrl + alt - h"]
+window_swap_west         = ["ctrl + alt + shift - leftarrow", "ctrl + alt + shift - h"]
+window_focus_east        = ["ctrl + alt - rightarrow", "ctrl + alt - l"]
+window_swap_east         = ["ctrl + alt + shift - rightarrow", "ctrl + alt + shift - l"]
+window_focus_north       = ["ctrl + alt - uparrow", "ctrl + alt - k"]
+window_swap_north        = ["ctrl + alt + shift - uparrow", "ctrl + alt + shift - k"]
+window_focus_south       = ["ctrl + alt - downarrow", "ctrl + alt - j"]
+window_swap_south        = ["ctrl + alt + shift - downarrow", "ctrl + alt + shift - j"]
+window_focus_first       = ["ctrl + alt - home", "ctrl + alt - leftbracket"]
+window_swap_first        = ["ctrl + alt + shift - home", "ctrl + alt + shift - leftbracket"]
+window_focus_last        = ["ctrl + alt - end", "ctrl + alt - rightbracket"]
+window_swap_last         = ["ctrl + alt + shift - end", "ctrl + alt + shift - rightbracket"]
+window_focus_1           = "ctrl + alt - 1"
+window_focus_2           = "ctrl + alt - 2"
+window_focus_3           = "ctrl + alt - 3"
+window_focus_4           = "ctrl + alt - 4"
+window_focus_5           = "ctrl + alt - 5"
+window_focus_6           = "ctrl + alt - 6"
+window_focus_7           = "ctrl + alt - 7"
+window_focus_8           = "ctrl + alt - 8"
+window_focus_9           = "ctrl + alt - 9"
+window_virtual_north     = ["ctrl + alt + cmd - uparrow", "ctrl + alt + cmd - k"]
+window_virtualmove_north = ["ctrl + alt + cmd + shift - uparrow", "ctrl + alt + cmd + shift - k"]
+window_virtual_south     = ["ctrl + alt + cmd - downarrow", "ctrl + alt + cmd - j"]
+window_virtualmove_south = ["ctrl + alt + cmd + shift - downarrow", "ctrl + alt + cmd + shift - j"]
+window_virtualnum_1      = "ctrl + alt + cmd - 1"
+window_virtualmovenum_1  = "ctrl + alt + cmd + shift - 1"
+window_virtualnum_2      = "ctrl + alt + cmd - 2"
+window_virtualmovenum_2  = "ctrl + alt + cmd + shift - 2"
+window_virtualnum_3      = "ctrl + alt + cmd - 3"
+window_virtualmovenum_3  = "ctrl + alt + cmd + shift - 3"
+window_virtualnum_4      = "ctrl + alt + cmd - 4"
+window_virtualmovenum_4  = "ctrl + alt + cmd + shift - 4"
+window_virtualnum_5      = "ctrl + alt + cmd - 5"
+window_virtualmovenum_5  = "ctrl + alt + cmd + shift - 5"
+window_virtualnum_6      = "ctrl + alt + cmd - 6"
+window_virtualmovenum_6  = "ctrl + alt + cmd + shift - 6"
+window_virtualnum_7      = "ctrl + alt + cmd - 7"
+window_virtualmovenum_7  = "ctrl + alt + cmd + shift - 7"
+window_virtualnum_8      = "ctrl + alt + cmd - 8"
+window_virtualmovenum_8  = "ctrl + alt + cmd + shift - 8"
+window_virtualnum_9      = "ctrl + alt + cmd - 9"
+window_virtualmovenum_9  = "ctrl + alt + cmd + shift - 9"
+window_nextdisplay       = ["ctrl + alt + cmd + shift - leftarrow", "ctrl + alt + cmd + shift - rightarrow", "ctrl + alt + cmd + shift - h", "ctrl + alt + cmd + shift - l"]
+window_fullwidth         = "ctrl + alt - f"
+window_center            = "ctrl + alt - c"
+window_resize            = "ctrl + alt - equal"
+window_shrink            = "ctrl + alt - minus"
+window_balance           = "ctrl + alt - 0"
+window_manage            = "ctrl + alt - t"
+window_stack             = "ctrl + alt - s"
+window_unstack           = "ctrl + alt + shift - s"
+window_tabbeddisplay     = "ctrl + alt - backslash"
 
-window_fullwidth   = "ctrl + alt - return"      # Rectangle: maximize
-window_center      = "ctrl + alt - c"           # Rectangle: center
-window_grow        = ["ctrl + alt - equal", "ctrl + alt - r"]  # Rectangle: larger
-window_shrink      = "ctrl + alt - minus"       # Rectangle: smaller
-window_balance     = "ctrl + alt - b"
-window_manage      = "ctrl + alt - f"           # toggle float
-window_stack       = "ctrl + alt - leftbracket"
-window_unstack     = "ctrl + alt - rightbracket"
-window_tabbeddisplay = "ctrl + alt - t"
-window_nextdisplay = ["ctrl + alt + cmd - rightarrow", "ctrl + alt + cmd - leftarrow"]
-window_copyrule    = "ctrl + alt + shift - c"   # copy a [windows.*] rule for the focused window
-
-restart = "ctrl + alt + shift - r"
-quit    = "ctrl + alt - q"
+[decorations.menu.descriptor]
+style = "hidden"

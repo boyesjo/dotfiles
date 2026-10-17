@@ -8,20 +8,72 @@
             "complex_modifications": {
                 "rules": [
                     {
+                        "description": "F5 opens the Screenshot toolbar",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "f5"
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "5",
+                                        "modifiers": [
+                                            "left_command",
+                                            "left_shift"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Caps Lock to Ctrl+Option (Escape if alone)",
                         "manipulators": [
                             {
                                 "from": {
                                     "key_code": "caps_lock",
-                                    "modifiers": { "optional": ["any"] }
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "left_control",
-                                        "modifiers": ["left_option"]
+                                        "modifiers": [
+                                            "left_option"
+                                        ]
                                     }
                                 ],
-                                "to_if_alone": [{ "key_code": "escape" }],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "escape"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Hyper+Space toggles Paneru Switcher's window panel",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "spacebar",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "control",
+                                            "option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "shell_command": "open -g paneru-switcher://toggle"
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]
@@ -33,15 +85,26 @@
                             {
                                 "from": {
                                     "key_code": "caps_lock",
-                                    "modifiers": { "optional": ["any"] }
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "right_control",
-                                        "modifiers": ["right_gui", "right_alt"]
+                                        "modifiers": [
+                                            "right_gui",
+                                            "right_alt"
+                                        ]
                                     }
                                 ],
-                                "to_if_alone": [{ "key_code": "escape" }],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "escape"
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]
@@ -52,12 +115,19 @@
                             {
                                 "from": {
                                     "key_code": "8",
-                                    "modifiers": { "mandatory": ["right_command"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "right_command"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "8",
-                                        "modifiers": ["left_option", "left_shift"]
+                                        "modifiers": [
+                                            "left_option",
+                                            "left_shift"
+                                        ]
                                     }
                                 ],
                                 "type": "basic"
@@ -65,12 +135,19 @@
                             {
                                 "from": {
                                     "key_code": "9",
-                                    "modifiers": { "mandatory": ["right_command"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "right_command"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "9",
-                                        "modifiers": ["left_option", "left_shift"]
+                                        "modifiers": [
+                                            "left_option",
+                                            "left_shift"
+                                        ]
                                     }
                                 ],
                                 "type": "basic"
@@ -83,12 +160,19 @@
                             {
                                 "from": {
                                     "key_code": "7",
-                                    "modifiers": { "mandatory": ["right_command"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "right_command"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "7",
-                                        "modifiers": ["left_option", "left_shift"]
+                                        "modifiers": [
+                                            "left_option",
+                                            "left_shift"
+                                        ]
                                     }
                                 ],
                                 "type": "basic"
@@ -109,12 +193,24 @@
             ],
             "fn_function_keys": [
                 {
-                    "from": { "key_code": "f4" },
-                    "to": [{ "key_code": "f17" }]
+                    "from": {
+                        "key_code": "f4"
+                    },
+                    "to": [
+                        {
+                            "key_code": "f17"
+                        }
+                    ]
                 },
                 {
-                    "from": { "key_code": "f6" },
-                    "to": [{ "key_code": "f16" }]
+                    "from": {
+                        "key_code": "f6"
+                    },
+                    "to": [
+                        {
+                            "key_code": "f18"
+                        }
+                    ]
                 }
             ],
             "name": "Default profile",
