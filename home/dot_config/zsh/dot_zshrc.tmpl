@@ -15,8 +15,10 @@ fi
 mkdir -p ~/.config/zsh/completions
 fpath=(~/.config/zsh/completions $fpath)
 
-autoload -Uz compinit
-compinit
+# Plugins call compdef as they load; queue those calls for the one compinit
+# after `antidote load`, which needs every plugin's fpath in place first.
+typeset -ga _compdef_queue
+compdef() { _compdef_queue+=("${(j: :)${(@q)@}}") }
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -49,13 +51,10 @@ alias claude-work="CLAUDE_CONFIG_DIR=~/.claude-work claude"
 # Add zsh completion scripts installed via Homebrew
 # fpath=("$HOMEBREW/share/zsh/site-functions" $fpath)
 # eval "$(/opt/homebrew/bin/brew shellenv)"
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fpath=(${commands[brew]:h:h}/share/zsh/site-functions $fpath)
 
 export HOMEBREW_NO_EMOJI=1
 {{ end -}}
-
-autoload -Uz compinit
-compinit
 
 ## FZF
 export FZF_PATH="$HOME/.config/fzf"
@@ -63,7 +62,10 @@ export FZF_PATH="$HOME/.config/fzf"
 
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 antidote load
-compinit
+unfunction compdef
+autoload -Uz compinit && compinit
+for _c in $_compdef_queue; do eval "compdef $_c"; done
+unset _c _compdef_queue
 
 # Slurm: zsh-native flag completion (parses each command's --help).
 # Slurm's own slurm_completion.sh refuses to run outside bash, so we don't use it.
@@ -94,8 +96,62 @@ alias lt3="tree --gitignore -L 3"
 alias lt4="tree --gitignore -L 4"
 {{ end -}}
 
-{{ if lookPath "zoxide" -}}
-eval "$(zoxide init zsh)"
+{{ if lookPath "chezmoi" -}}
+# Dotfiles drift. `dotfiles-drift` lists what chezmoi and the Brewfile disagree
+# on and caches the counts for the dotfiles_drift segment in .p10k.zsh.
+# -q skips the listing; -c rechecks chezmoi only and keeps the cached brew counts.
+# Every new shell and every chezmoi command recheck chezmoi in the background;
+# brew is rechecked once the cache is a day old.
+dotfiles-drift() {
+  local cache=${XDG_CACHE_HOME:-$HOME/.cache}/dotfiles-drift
+  local -a cz missing extra old
+  cz=(${(f)"$(command chezmoi status 2>/dev/null)"})
+  [[ -r $cache ]] && old=(${=$(<$cache)})
+  local nmissing=${old[2]:-0} nextra=${old[3]:-0}
+  if [[ $* != *-c* ]] && (( $+commands[brew] )); then
+    local brewfile="$(command chezmoi source-path)/Brewfile"
+    missing=(${(f)"$(command brew bundle check --no-upgrade --verbose --file=$brewfile 2>&1 |
+      sed -n 's/^→ \(.*\) needs to be installed\.$/\1/p')"})
+    extra=(${(f)"$(command brew bundle cleanup --file=$brewfile 2>/dev/null |
+      awk '/^Would `brew cleanup`/{exit} /^Would|^Run/{next} {print}')"})
+    nmissing=$#missing nextra=$#extra
+  fi
+  mkdir -p ${cache:h}
+  print -r -- "$#cz $nmissing $nextra" >| $cache.$$ && mv -f $cache.$$ $cache
+  [[ $* == *-q* ]] && return
+  (( $#cz )) && print -rl -- "chezmoi status (re-add or apply):" "  "$^cz
+  [[ $* == *-c* ]] && return
+  (( $#missing )) && print -rl -- "In the Brewfile, not installed (brew bundle):" "  "$^missing
+  (( $#extra )) && print -rl -- "Installed, not in the Brewfile (brew bundle dump):" "  "$^extra
+  (( $#cz + $#missing + $#extra )) || print "No drift."
+}
+() {
+  local cache=${XDG_CACHE_HOME:-$HOME/.cache}/dotfiles-drift
+  local -a fresh=($cache(N.mh-24))
+  if (( $#fresh )); then
+    dotfiles-drift -q -c &>/dev/null &!
+  else
+    # Touch first so shells opened meanwhile don't start their own brew check.
+    mkdir -p ${cache:h} && touch $cache
+    dotfiles-drift -q &>/dev/null &!
+  fi
+}
+chezmoi() {
+  command chezmoi "$@"
+  local rc=$?
+  dotfiles-drift -q -c &>/dev/null &!
+  return rc
+}
+# Keep the Brewfile in the chezmoi source current: after brew changes what is
+# installed, redump it in the background and refresh the drift cache.
+brew() {
+  command brew "$@" || return
+  case $1 in
+    install|reinstall|uninstall|remove|rm|tap|untap|autoremove)
+      ( command brew bundle dump --no-vscode --no-cargo --force \
+          --file="$(chezmoi source-path)/Brewfile" && dotfiles-drift -q ) &>/dev/null &! ;;
+  esac
+}
 {{ end -}}
 
 # disable sort when completing `git checkout`

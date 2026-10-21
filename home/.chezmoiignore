@@ -5,9 +5,13 @@ scripts/
 {{ if ne .chezmoi.os "darwin" }}
 Library/**
 .config/karabiner/**
+.config/iterm2/**
 {{ end }}
 
 {{ if eq .chezmoi.os "darwin" }}
 # linux-only login-shell trampoline
 .bash_profile
 {{ end }}
+
+# Brewfile records brew installs for dotfiles-drift and a manual `brew bundle`; not a target
+Brewfile
