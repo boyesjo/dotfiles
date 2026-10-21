@@ -1,0 +1,16 @@
+{
+  "trustedcasks": [
+    "athevon/tokeneater/tokeneater",
+    "chang-07/tap/rascal",
+    "hamed-elfayome/claude-usage/claude-usage-tracker",
+    "nikitabobko/tap/aerospace"
+  ],
+  "trustedformulae": [
+    "asmvik/formulae/yabai",
+    "can1357/tap/omp",
+    "smudge/smudge/nightlight"
+  ],
+  "trustedtaps": [
+    "asmvik/formulae"
+  ]
+}

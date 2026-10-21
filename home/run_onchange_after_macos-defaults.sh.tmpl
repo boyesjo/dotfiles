@@ -1,0 +1,56 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/sh
+# macOS settings, as read off this Mac on 2026-10-21. chezmoi reruns this
+# whenever the file changes. To capture a new setting, change it in System
+# Settings, find it with `defaults read <domain>` and add it here.
+set -eu
+
+# Keyboard, appearance, windows
+defaults write -g KeyRepeat -int 2
+defaults write -g InitialKeyRepeat -int 15
+defaults write -g AppleInterfaceStyle -string Dark
+defaults write -g AppleShowAllExtensions -bool true
+# ctrl-cmd-drag moves a window from anywhere in it
+defaults write -g NSWindowShouldDragOnGesture -bool true
+
+# Trackpad: tap to click
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+
+# Dock
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock autohide-delay -float 0
+defaults write com.apple.dock autohide-time-modifier -float 0.5
+defaults write com.apple.dock tilesize -int 54
+defaults write com.apple.dock show-recents -bool false
+defaults write com.apple.dock mru-spaces -bool false
+defaults write com.apple.dock expose-group-apps -bool false
+# Hot corners: bottom left Quick Note, top right Notification Center
+defaults write com.apple.dock wvous-bl-corner -int 14
+defaults write com.apple.dock wvous-tr-corner -int 12
+defaults write com.apple.dock wvous-tl-corner -int 1
+defaults write com.apple.dock wvous-br-corner -int 1
+
+# Desktop and Stage Manager: no Stage Manager, no tiling, no click to show desktop
+defaults write com.apple.WindowManager GloballyEnabled -bool false
+defaults write com.apple.WindowManager EnableTilingByEdgeDrag -bool false
+defaults write com.apple.WindowManager EnableTilingOptionAccelerator -bool false
+defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
+defaults write com.apple.WindowManager StandardHideDesktopIcons -bool true
+
+# Finder
+defaults write com.apple.finder NewWindowTarget -string PfHm
+defaults write com.apple.finder FXPreferredViewStyle -string icnv
+defaults write com.apple.finder FXDefaultSearchScope -string SCcf
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+defaults write com.apple.finder ShowPathbar -bool true
+defaults write com.apple.finder ShowStatusBar -bool true
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
+# No .DS_Store on network shares and USB drives
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
+killall Dock Finder >/dev/null 2>&1 || true
+{{ end -}}

@@ -6,6 +6,7 @@ scripts/
 Library/**
 .config/karabiner/**
 .config/iterm2/**
+.config/linearmouse/**
 {{ end }}
 
 {{ if eq .chezmoi.os "darwin" }}
@@ -15,3 +16,8 @@ Library/**
 
 # Brewfile records brew installs for dotfiles-drift and a manual `brew bundle`; not a target
 Brewfile
+
+# gh keeps its token here; never track it
+.config/gh/hosts.yml
+# yazi plugins are installed from package.toml by `ya pkg install`
+.config/yazi/plugins/**
