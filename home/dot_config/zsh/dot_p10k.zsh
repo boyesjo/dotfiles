@@ -48,7 +48,7 @@
     status                  # exit code of the last command
     command_execution_time  # duration of the last command
     background_jobs         # presence of background jobs
-    dotfiles_drift          # chezmoi and Brewfile drift (prompt_dotfiles_drift below)
+    dotfiles_drift          # chezmoi and Brewfile drift, e.g. ⌂ !1 ⇣2 brew ?1 (prompt_dotfiles_drift below)
     virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
     context                 # user@hostname
     vim_shell               # vim shell indicator (:sh)
@@ -1552,16 +1552,20 @@
     prompt_example
   }
 
-  # Dotfiles drift, from the counts `dotfiles-drift` (in .zshrc) caches: chezmoi
-  # targets out of sync, then Brewfile entries not installed plus installs not in
+  # Dotfiles drift, from the counts `dotfiles-drift` (in .zshrc) caches, in the
+  # vcs segment's vocabulary: ⌂ !N files edited here to re-add, ⌂ ⇣N changes
+  # to apply; brew +N Brewfile entries not installed, brew ?N installs not in
   # the Brewfile. Run `dotfiles-drift` for the list.
   function prompt_dotfiles_drift() {
     local f=${XDG_CACHE_HOME:-$HOME/.cache}/dotfiles-drift
     [[ -s $f ]] || return
     local -a n=(${=$(<$f)})
-    local t=
-    (( n[1] )) && t="chezmoi ${n[1]}"
-    (( n[2] + n[3] )) && t+="${t:+ }brew $(( n[2] + n[3] ))"
+    local cz= br=
+    (( n[1] )) && cz+=" !${n[1]}"
+    (( n[2] )) && cz+=" ⇣${n[2]}"
+    (( n[3] )) && br+=" +${n[3]}"
+    (( n[4] )) && br+=" ?${n[4]}"
+    local t=${cz:+⌂$cz}${cz:+${br:+ }}${br:+brew$br}
     [[ -n $t ]] && p10k segment -f 3 -t $t
   }
   function instant_prompt_dotfiles_drift() {

@@ -104,10 +104,13 @@ alias lt4="tree --gitignore -L 4"
 # brew is rechecked once the cache is a day old.
 dotfiles-drift() {
   local cache=${XDG_CACHE_HOME:-$HOME/.cache}/dotfiles-drift
-  local -a cz missing extra old
+  local -a cz readd apply missing extra old
   cz=(${(f)"$(command chezmoi status 2>/dev/null)"})
+  # chezmoi status column 1: the file changed since chezmoi last wrote it (re-add);
+  # column 2: applying would change it (apply).
+  readd=(${(M)cz:#[^ ]?*}) apply=(${(M)cz:#?[^ ]*})
   [[ -r $cache ]] && old=(${=$(<$cache)})
-  local nmissing=${old[2]:-0} nextra=${old[3]:-0}
+  local nmissing=${old[3]:-0} nextra=${old[4]:-0}
   if [[ $* != *-c* ]] && (( $+commands[brew] )); then
     local brewfile="$(command chezmoi source-path)/Brewfile"
     missing=(${(f)"$(command brew bundle check --no-upgrade --verbose --file=$brewfile 2>&1 |
@@ -117,12 +120,13 @@ dotfiles-drift() {
     nmissing=$#missing nextra=$#extra
   fi
   mkdir -p ${cache:h}
-  print -r -- "$#cz $nmissing $nextra" >| $cache.$$ && mv -f $cache.$$ $cache
+  print -r -- "$#readd $#apply $nmissing $nextra" >| $cache.$$ && mv -f $cache.$$ $cache
   [[ $* == *-q* ]] && return
-  (( $#cz )) && print -rl -- "chezmoi status (re-add or apply):" "  "$^cz
+  (( $#readd )) && print -rl -- "!  edited here, chezmoi re-add:" "  "${^readd#???}
+  (( $#apply )) && print -rl -- "⇣  source is ahead, chezmoi apply:" "  "${^apply#???}
   [[ $* == *-c* ]] && return
-  (( $#missing )) && print -rl -- "In the Brewfile, not installed (brew bundle):" "  "$^missing
-  (( $#extra )) && print -rl -- "Installed, not in the Brewfile (brew bundle dump):" "  "$^extra
+  (( $#missing )) && print -rl -- "+  in the Brewfile, not installed, brew bundle:" "  "$^missing
+  (( $#extra )) && print -rl -- "?  installed, not in the Brewfile, brew bundle dump:" "  "$^extra
   (( $#cz + $#missing + $#extra )) || print "No drift."
 }
 () {
@@ -165,5 +169,10 @@ zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # preview directory's content with eza when completing cd
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+# preview files and directories for every other command too; the cd style
+# above wins for cd because it is more specific
+zstyle ':fzf-tab:complete:*:*' fzf-preview \
+  '[[ -d $realpath ]] && eza -1 --color=always -- $realpath ||
+   { [[ -f $realpath ]] && bat --color=always --style=plain --line-range=:200 -- $realpath }'
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
