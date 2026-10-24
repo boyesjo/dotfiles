@@ -4,7 +4,7 @@ focus_follows_mouse = false
 mouse_follows_focus = false
 preset_column_widths = [0.25, 0.33, 0.5, 0.66, 0.75, 0.9, 1.0]
 disable_native_tabs = true                     # skip the 1 s AX sweep of every app (can hitch mid-swipe)
-auto_center = true
+auto_center = false
 create_virtual_workspace_automatically = false
 window_resize_cycle = true
 window_hidden_ratio = 0.15
@@ -93,8 +93,7 @@ floating = true
 
 [swipe]
 continuous = true          # strip may scroll past first/last window
-sensitivity = 0.3          # 0.1–2.0 (default 0.35); Caps-scroll speed ~ s², 3-finger swipe ~ s
-deceleration = 10          # 3-finger glide only, max 10 (default 4.0); Caps-scroll uses macOS momentum
+sensitivity = 0.25
 
 [swipe.gesture]
 fingers_count = 3           # 3-finger horizontal swipe slides strip

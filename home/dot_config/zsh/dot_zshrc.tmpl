@@ -97,46 +97,82 @@ alias lt4="tree --gitignore -L 4"
 {{ end -}}
 
 {{ if lookPath "chezmoi" -}}
-# Dotfiles drift. `dotfiles-drift` lists what chezmoi and the Brewfile disagree
-# on and caches the counts for the dotfiles_drift segment in .p10k.zsh.
-# -q skips the listing; -c rechecks chezmoi only and keeps the cached brew counts.
-# Every new shell and every chezmoi command recheck chezmoi in the background;
-# brew is rechecked once the cache is a day old.
+# Dotfiles drift. `drift` (`dotfiles-drift`) lists what chezmoi and the Brewfile
+# disagree on and caches the counts for the dotfiles_drift segment in .p10k.zsh.
+# chezmoi is rechecked on every call (fast); brew is slow, so its lists come from
+# the cache file .brew, refreshed in the background once a day and after brew
+# changes what is installed. -f rechecks brew now; -q skips the listing and
+# rechecks brew too unless -c is given.
 dotfiles-drift() {
+  local -a quiet czonly force
+  zparseopts -D q=quiet c=czonly f=force
   local cache=${XDG_CACHE_HOME:-$HOME/.cache}/dotfiles-drift
-  local -a cz readd apply missing extra old
+  local -a cz readd apply both gone missing extra
+  local line age=
   cz=(${(f)"$(command chezmoi status 2>/dev/null)"})
   # chezmoi status column 1: the file changed since chezmoi last wrote it (re-add);
-  # column 2: applying would change it (apply).
-  readd=(${(M)cz:#[^ ]?*}) apply=(${(M)cz:#?[^ ]*})
-  [[ -r $cache ]] && old=(${=$(<$cache)})
-  local nmissing=${old[3]:-0} nextra=${old[4]:-0}
-  if [[ $* != *-c* ]] && (( $+commands[brew] )); then
+  # column 2: applying would change it (apply). Both set means both sides changed.
+  for line in $cz; do
+    case $line in
+      D*) gone+=(${line#???}) ;;
+      [^[:space:]][^[:space:]]*) both+=(${line#???}) ;;
+      [^[:space:]]*) readd+=(${line#???}) ;;
+      *) apply+=(${line#???}) ;;
+    esac
+  done
+  mkdir -p ${cache:h}
+  if (( $+commands[brew] )) && { (( $#force )) || if (( $#quiet )); then (( ! $#czonly ));
+     else [[ ! -e $cache.brew ]]; fi }; then
     local brewfile="$(command chezmoi source-path)/Brewfile"
     missing=(${(f)"$(command brew bundle check --no-upgrade --verbose --file=$brewfile 2>&1 |
       sed -n 's/^→ \(.*\) needs to be installed\.$/\1/p')"})
     extra=(${(f)"$(command brew bundle cleanup --file=$brewfile 2>/dev/null |
       awk '/^Would `brew cleanup`/{exit} /^Would|^Run/{next} {print}')"})
-    nmissing=$#missing nextra=$#extra
+    # Always one line, so an empty file still marks when brew was checked.
+    print -rl -- "#" "+ "${^missing} "? "${^extra} >| $cache.brew.$$ && mv -f $cache.brew.$$ $cache.brew
+  elif [[ -r $cache.brew ]]; then
+    local -a cached=(${(f)"$(<$cache.brew)"})
+    missing=(${${(M)cached:#+ *}#+ }) extra=(${${(M)cached:#\? *}#\? })
+    zmodload -F zsh/stat b:zstat && zmodload zsh/datetime
+    local -i s=$(( EPOCHSECONDS - $(zstat +mtime $cache.brew) ))
+    if (( s < 3600 )); then age="$(( s / 60 ))m" elif (( s < 86400 )); then age="$(( s / 3600 ))h"
+    else age="$(( s / 86400 ))d"; fi
   fi
-  mkdir -p ${cache:h}
-  print -r -- "$#readd $#apply $nmissing $nextra" >| $cache.$$ && mv -f $cache.$$ $cache
-  [[ $* == *-q* ]] && return
-  (( $#readd )) && print -rl -- "!  edited here, chezmoi re-add:" "  "${^readd#???}
-  (( $#apply )) && print -rl -- "⇣  source is ahead, chezmoi apply:" "  "${^apply#???}
-  [[ $* == *-c* ]] && return
-  (( $#missing )) && print -rl -- "+  in the Brewfile, not installed, brew bundle:" "  "$^missing
-  (( $#extra )) && print -rl -- "?  installed, not in the Brewfile, brew bundle dump:" "  "$^extra
-  (( $#cz + $#missing + $#extra )) || print "No drift."
+  print -r -- "$(( $#readd + $#both + $#gone )) $#apply $#missing $#extra" >| $cache.$$ &&
+    mv -f $cache.$$ $cache
+  (( $#quiet )) && return
+  local n=$(( $#cz ))
+  if (( n )); then
+    print "chezmoi ($n)"
+    (( $#readd )) && print -rl -- "  edited here → chezmoi re-add" "    "${^readd}
+    (( $#apply )) && print -rl -- "  source ahead → chezmoi apply" "    "${^apply}
+    (( $#both )) && print -rl -- "  changed on both sides → chezmoi diff, then re-add or apply" "    "${^both}
+    (( $#gone )) && print -rl -- "  deleted here → chezmoi apply to restore, or chezmoi forget" "    "${^gone}
+  fi
+  n=$(( $#missing + $#extra ))
+  if (( n )); then
+    print "brew ($n${age:+, checked $age ago; drift -f to recheck})"
+    if (( $#missing )); then
+      print -rl -- "  in the Brewfile, not installed → brew bundle" "    "${^missing}
+    fi
+    if (( $#extra )); then
+      print "  installed, not in the Brewfile → brew bundle dump, or brew uninstall"
+      COLUMNS=$(( ${COLUMNS:-80} - 4 )) print -rc -- $extra | sed 's/^/    /'
+    fi
+  fi
+  (( $#cz + n )) || print "No drift."
 }
+alias drift=dotfiles-drift
 () {
   local cache=${XDG_CACHE_HOME:-$HOME/.cache}/dotfiles-drift
-  local -a fresh=($cache(N.mh-24))
+  # The counts file is rewritten on every chezmoi recheck, so brew's age comes
+  # from the list file.
+  local -a fresh=($cache.brew(N.mh-24))
   if (( $#fresh )); then
     dotfiles-drift -q -c &>/dev/null &!
   else
     # Touch first so shells opened meanwhile don't start their own brew check.
-    mkdir -p ${cache:h} && touch $cache
+    mkdir -p ${cache:h} && touch $cache.brew
     dotfiles-drift -q &>/dev/null &!
   fi
 }
@@ -153,7 +189,7 @@ brew() {
   case $1 in
     install|reinstall|uninstall|remove|rm|tap|untap|autoremove)
       ( command brew bundle dump --no-vscode --no-cargo --force \
-          --file="$(chezmoi source-path)/Brewfile" && dotfiles-drift -q ) &>/dev/null &! ;;
+          --file="$(command chezmoi source-path)/Brewfile" && dotfiles-drift -q ) &>/dev/null &! ;;
   esac
 }
 {{ end -}}

@@ -2,6 +2,7 @@
   "trustedcasks": [
     "athevon/tokeneater/tokeneater",
     "chang-07/tap/rascal",
+    "fif7y/tap/dimble",
     "hamed-elfayome/claude-usage/claude-usage-tracker",
     "nikitabobko/tap/aerospace"
   ],

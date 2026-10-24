@@ -1,6 +1,7 @@
 tap "athevon/tokeneater", "https://github.com/AThevon/homebrew-tokeneater", trusted: { casks: ["tokeneater"] }
 tap "can1357/tap"
 tap "chang-07/tap", trusted: { casks: ["rascal"] }
+tap "fif7y/tap", trusted: { casks: ["dimble"] }
 tap "hamed-elfayome/claude-usage"
 tap "homebrew/core"
 tap "nikitabobko/tap", trusted: { casks: ["aerospace"] }
