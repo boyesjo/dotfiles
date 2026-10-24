@@ -19,5 +19,3 @@ Brewfile
 
 # gh keeps its token here; never track it
 .config/gh/hosts.yml
-# yazi plugins are installed from package.toml by `ya pkg install`
-.config/yazi/plugins/**
